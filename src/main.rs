@@ -38,9 +38,9 @@ impl Counts {
     }
 }
 
-fn count_file(path: &PathBuf) -> io::Result {
+fn count_file(path: &PathBuf) -> io::Result<Counts> {
     // open file or stdin
-    let reader: Box = if path.as_os_str() == "-" {
+    let reader: Box<dyn Read> = if path.as_os_str() == "-" {
         Box::new(io::stdin().lock())
     } else {
         Box::new(File::open(path)?)
